@@ -5,8 +5,9 @@
 	vvp build/$@
 	gtkwave build/$*.vcd
 
-top.bit: src/top.sv src/sprite_buf_Ex1.sv
-	yosys -p "synth_ecp5 -json build/top.json" $^
+top.bit: src/top.sv src/sprite_buf_Ex2.sv
+	mkdir -p build
+	yosys -p "synth_ecp5 -top top -json build/top.json" $^
 	nextpnr-ecp5 --25k --package CABGA256 --speed 6 --json build/top.json --textcfg build/top.cfg --lpf top.lpf --freq 65
 	ecppack --svf build/top.svf build/top.cfg build/top.bit
 
